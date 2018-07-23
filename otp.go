@@ -20,6 +20,7 @@ package otp
 import (
 	"github.com/boombuler/barcode"
 	"github.com/boombuler/barcode/qr"
+	"github.com/tjfoc/gmsm/sm3"
 
 	"crypto/md5"
 	"crypto/sha1"
@@ -152,6 +153,7 @@ const (
 	AlgorithmSHA256
 	AlgorithmSHA512
 	AlgorithmMD5
+	AlgorithmSM3
 )
 
 func (a Algorithm) String() string {
@@ -164,6 +166,8 @@ func (a Algorithm) String() string {
 		return "SHA512"
 	case AlgorithmMD5:
 		return "MD5"
+	case AlgorithmSM3:
+		return "SM3"
 	}
 	panic("unreached")
 }
@@ -178,6 +182,8 @@ func (a Algorithm) Hash() hash.Hash {
 		return sha512.New()
 	case AlgorithmMD5:
 		return md5.New()
+	case AlgorithmSM3:
+		return sm3.New()
 	}
 	panic("unreached")
 }
